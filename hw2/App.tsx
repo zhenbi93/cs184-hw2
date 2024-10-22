@@ -33,19 +33,32 @@ const App = () => {
         }
       },[response])
 
-
+      useEffect(()=>{
+        const unsub = onAuthStateChanged(auth, async(user) => {
+          if(user){
+            console.log(JSON.stringify(user,null,2));
+            setUserInfo(user);
+          }else{
+            console.log("else");
+          }
+        });
+        return ()=> unsub();
+      },[]);
 
       return (
               <NavigationContainer independent={true}>
-                <SignInScreen promptAsync={promptAsync} />
+                {userInfo ?
+                (
                   <Stack.Navigator screenOptions={{ headerShown: false }}>
                       <Stack.Screen
                           name="Tab"
                           component={Navigator}
                           options={{ animation: "slide_from_bottom" }}
                       ></Stack.Screen>
-
                   </Stack.Navigator>
+                )
+                  :  (<SignInScreen promptAsync={promptAsync} />)
+                }
               </NavigationContainer>
     );
 };
