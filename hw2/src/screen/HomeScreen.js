@@ -1,27 +1,20 @@
 import React, { useState, useCallback } from "react";
+import {signOut} from "firebase/auth";
 import {
-    ScrollView,
     StatusBar,
     StyleSheet,
     Text,
-    TextInput,
-    TouchableOpacity,
-    FlatList,
-    Image,
     View,
-    ToastAndroid,
+    Button
 } from "react-native";
 
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"; //navigation
-import Entypo from "@expo/vector-icons/Entypo"; //icon
-import { Colors } from "react-native/Libraries/NewAppScreen"; //color
-import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme"; //local color list
-
+import {auth} from "../../firebaseConfig"
 
 const HomeScreen = ({ navigation }) => {
+    const [userInfo, setUserInfo] =useState();
     return (
         <View style={styles.container}>
-        <Text>HomeScreen</Text>
+        <Button title ="Sign Out" onPress = {async () => await signOut(auth)} />
         <StatusBar style="auto" />
         </View>
     );
