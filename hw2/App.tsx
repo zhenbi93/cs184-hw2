@@ -24,7 +24,7 @@ const App = () => {
       const [request, response, promptAsync] = Google.useAuthRequest({
         iosClientId:'311277958610-c2b5he1l63vqj6jc83rjqtkj6m2ovacr.apps.googleusercontent.com',
       });
-
+      
       useEffect(()=>{
         if(response?.type == "success"){
             const {id_token} =response.params;
@@ -38,8 +38,9 @@ const App = () => {
           if(user){
             console.log(JSON.stringify(user,null,2));
             setUserInfo(user);
+            await AsyncStorage.setItem("@user",JSON.stringify(user));
           }else{
-            console.log("else");
+            console.log("User is not logged in");
           }
         });
         return ()=> unsub();
